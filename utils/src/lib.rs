@@ -1,7 +1,8 @@
-use num::integer::Roots;
+use std::collections::HashSet;
+use std::collections::VecDeque;
 
 pub fn nth_fib_number(n: u64) -> u128 {
-    return fib_fast_double(n).0;
+    fib_fast_double(n).0
 }
 
 pub fn get_fib_numbers_until(limit: u128) -> Vec<u128> {
@@ -20,7 +21,7 @@ pub fn get_fib_numbers_until(limit: u128) -> Vec<u128> {
         i += 1;
     }
 
-    return vec;
+    vec
 }
 
 fn fib_fast_double(n: u64) -> (u128, u128) {
@@ -32,17 +33,32 @@ fn fib_fast_double(n: u64) -> (u128, u128) {
     let c = a * ((b << 1u32) - a);
     let d = (a * a) + (b * b);
 
-    return if n & 1 == 0 {
+    if n & 1 == 0 {
         (c, d)
     } else {
         (d, c + d)
-    };
+    }
 }
 
-pub fn prime_factors_of(num: u128) -> Vec<u128> {
-    let sqrt = num.sqrt();
+pub fn prime_factors_of(mut num: u128) -> Vec<u128> {
+    let mut primes = Vec::new();
+    let prime_list = get_primes_until_n((num as f64).sqrt() as u128 + 1);
 
-    return get_primes_until_n(sqrt).into_iter().filter(|x| num % x == 0).collect();
+    for &prime in &prime_list {
+        while num % prime == 0 {
+            primes.push(prime);
+            num /= prime;
+        }
+        if num == 1 {
+            break;
+        }
+    }
+
+    if num > 1 {
+        primes.push(num);
+    }
+
+    primes
 }
 
 pub fn get_primes_until_n(n: u128) -> Vec<u128> {
@@ -51,11 +67,11 @@ pub fn get_primes_until_n(n: u128) -> Vec<u128> {
         return vec![];
     }
 
-    let mut isprime = vec![true; limit];
+    let mut isprime = VecDeque::from(vec![true; limit]);
     let mut prime = Vec::with_capacity((n as f64 / (n as f64).ln()) as usize + 10);
 
-    isprime[0] = false; // 0 is not a prime number
-    isprime[1] = false; // 1 is not a prime number
+    isprime[0] = false;
+    isprime[1] = false;
 
     for i in 2..limit {
         if isprime[i] {
@@ -75,13 +91,17 @@ fn estimate_upper_bound(n: u128) -> u128 {
         return 15; // Small value for small n
     }
     let log_n = (n as f64).ln();
-    let estimate = (n as f64 * (log_n + log_n.ln())).ceil() as u128;
-    estimate
+
+    (n as f64 * (log_n + log_n.ln())).ceil() as u128
 }
 
-pub fn nth_prime(n: usize) -> Option<u128> {
+pub fn nth_prime_number(n: usize) -> Option<u128> {
     let upper_bound = estimate_upper_bound(n as u128);
     let primes = get_primes_until_n(upper_bound);
+
+    if n == 0 {
+        return Some(1);
+    }
 
     primes.get(n - 1).cloned()
 }
@@ -99,7 +119,7 @@ fn create_palindrome(input: u128, b: u128, is_odd: bool) -> u128 {
         n /= b;
     }
 
-    return palindrome;
+    palindrome
 }
 
 pub fn get_palindromes_until_n(limit: u128) -> Vec<u128> {
@@ -118,7 +138,7 @@ pub fn get_palindromes_until_n(limit: u128) -> Vec<u128> {
     }
 
     vec.sort_unstable();
-    return vec;
+    vec
 }
 
 pub fn is_palindrome(n: u128) -> bool {
@@ -127,8 +147,8 @@ pub fn is_palindrome(n: u128) -> bool {
 
     while temp != 0 {
         reverse = reverse * 10 + temp % 10;
-        temp /= 10; 
+        temp /= 10;
     }
 
-    return reverse == n;
+    reverse == n
 }
