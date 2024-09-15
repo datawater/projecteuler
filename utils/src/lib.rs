@@ -1,4 +1,3 @@
-use std::collections::HashSet;
 use std::collections::VecDeque;
 
 pub fn nth_fib_number(n: u64) -> u128 {

@@ -1,4 +1,4 @@
-#![allow(clippy::zero_prefixed_literal)]
+#![allow(clippy::zero_prefixed_literal, clippy::needless_range_loop)]
 
 const GRID: [u64; 400] = [
     08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08, 49, 49, 99, 40,
