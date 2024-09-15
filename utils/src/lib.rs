@@ -1,4 +1,4 @@
-use std::collections::VecDeque;
+use std::collections::{HashSet, VecDeque};
 
 pub fn nth_fib_number(n: u64) -> u128 {
     fib_fast_double(n).0
@@ -150,4 +150,23 @@ pub fn is_palindrome(n: u128) -> bool {
     }
 
     reverse == n
+}
+
+pub fn generate_proper_divisors(num: u128) -> HashSet<u128> {
+    let mut divisors = HashSet::new();
+    let mut i = 1;
+
+    while i < num {
+        if num.checked_rem(i).unwrap() == 0 {
+            divisors.insert(i);
+            if i != num.checked_div(i).unwrap() {
+                divisors.insert(num.checked_div(i).unwrap());
+            }
+        }
+        i += 1;
+    }
+
+    divisors.remove(&num);
+
+    divisors
 }
