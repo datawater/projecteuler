@@ -5,10 +5,3 @@ edition = "2021"
 
 [dependencies]
 utils = { path = "../utils" }
-
-[dev-dependencies]
-criterion = "0.5.1"
-
-[[bench]]
-name = "main"
-harness = false
