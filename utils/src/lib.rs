@@ -1,5 +1,5 @@
 use num::integer::sqrt;
-use std::collections::{HashSet, VecDeque};
+use std::collections::{BTreeSet, HashSet, VecDeque};
 
 pub fn nth_fib_number(n: u64) -> u128 {
     fib_fast_double(n).0
@@ -61,21 +61,21 @@ pub fn prime_factors_of(mut num: u128) -> Vec<u128> {
     primes
 }
 
-pub fn get_primes_until_n(n: u128) -> Vec<u128> {
+pub fn get_primes_until_n(n: u128) -> BTreeSet<u128> {
     let limit: usize = n as usize;
     if limit < 2 {
-        return vec![];
+        return BTreeSet::new();
     }
 
     let mut isprime = VecDeque::from(vec![true; limit]);
-    let mut prime = Vec::with_capacity((n as f64 / (n as f64).ln()) as usize + 10);
+    let mut prime = BTreeSet::new();
 
     isprime[0] = false;
     isprime[1] = false;
 
     for i in 2..limit {
         if isprime[i] {
-            prime.push(i as u128);
+            prime.insert(i as u128);
 
             for j in (i * i..limit).step_by(i) {
                 isprime[j] = false;
@@ -103,7 +103,7 @@ pub fn nth_prime_number(n: usize) -> Option<u128> {
         return Some(1);
     }
 
-    primes.get(n - 1).cloned()
+    primes.iter().nth(n - 1).cloned()
 }
 
 fn create_palindrome(input: u128, b: u128, is_odd: bool) -> u128 {
