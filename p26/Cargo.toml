@@ -1,7 +1,6 @@
 [package]
-name = "utils"
+name = "p26"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-num = "0.4.3"
