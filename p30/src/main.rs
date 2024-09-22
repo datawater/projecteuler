@@ -17,5 +17,5 @@ fn main() {
         })
         .sum::<u64>();
 
-    println!("SOLUTION P30: {x}");
+    println!("ANSWER P30: {x}");
 }
