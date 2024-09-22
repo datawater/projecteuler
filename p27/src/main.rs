@@ -8,7 +8,9 @@ fn evaluate(a: i32, b: i32, primes: &BTreeSet<u128>) -> usize {
     let mut score = 0;
     for n in 0..100 {
         let v = f(n as i32, a, b);
-        if v < 0 {break;}
+        if v < 0 {
+            break;
+        }
 
         if !primes.contains(&(v as u128)) {
             break;

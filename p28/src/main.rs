@@ -3,9 +3,7 @@ fn main() {
     let mut d = 1;
     let mut x = 0;
 
-    let term = |d: u32| -> u32 {
-        4 * d * d - 4 * d + 1
-    };
+    let term = |d: u32| -> u32 { 4 * d * d - 4 * d + 1 };
 
     while 2 * d - 1 < sq {
         x += term(d);
