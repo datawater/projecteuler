@@ -1,7 +1,11 @@
-use std::collections::HashSet;
-
 fn main() {
-    let mut nums_hashset = HashSet::new();
+    let mut nums_hashset: [u16; 16] = [0; 16];
+    let mut nums_hashet_i = 0;
+
+    #[rustfmt::skip]
+    const PO2: [u16; 10] = [
+        1 << 0, 1 << 1, 1 << 2, 1 << 3, 1 << 4, 1 << 5, 1 << 6, 1 << 7, 1 << 8, 1 << 9,
+    ];
 
     for a in 1..=99 {
         for b in (a + 1)..=9999 / a {
@@ -12,23 +16,29 @@ fn main() {
                 continue;
             }
 
-            let mut digits = [false; 10];
-
-            let mut valid = true;
-            for c in combined.chars() {
-                let d = c.to_digit(10).unwrap();
-                if d == 0 || digits[d as usize] {
-                    valid = false;
-                    break;
+            if combined
+            .as_bytes()
+            .iter()
+            .map(|x| PO2[(*x - b'0') as usize])
+            .sum::<u16>()
+            == 1022
+            {
+                // This is faster than a HashSet
+                let mut to_insert = true;
+                for x in nums_hashset.iter().take(nums_hashet_i) {
+                    if *x == product {
+                        to_insert = false;
+                        break;
+                    }
                 }
-                digits[d as usize] = true;
-            }
 
-            if valid {
-                nums_hashset.insert(product);
+                if to_insert {
+                    nums_hashset[nums_hashet_i] = product;
+                    nums_hashet_i += 1;
+                }
             }
         }
     }
 
-    println!("ANSWER P32: {}", nums_hashset.iter().sum::<u32>());
+    println!("ANSWER P32: {}", nums_hashset.iter().sum::<u16>());
 }
