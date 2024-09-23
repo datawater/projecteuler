@@ -7,7 +7,7 @@ fn f(n: i32, a: i32, b: i32) -> i32 {
 fn evaluate(a: i32, b: i32, primes: &BTreeSet<u128>) -> usize {
     let mut score = 0;
     for n in 0..100 {
-        let v = f(n as i32, a, b);
+        let v = f(n, a, b);
         if v < 0 {
             break;
         }
