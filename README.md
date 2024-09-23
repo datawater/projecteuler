@@ -5,3 +5,6 @@ Project euler solutions done by me.
 ```bash
 $ ./run-all.sh
 ```
+
+### To optimize
+- Problem 23 (current runtime: 540ms)
