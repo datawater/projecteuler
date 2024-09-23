@@ -17,12 +17,12 @@ fn main() {
             }
 
             if combined
-            .as_bytes()
-            .iter()
-            .map(|x| PO2[(*x - b'0') as usize])
-            .reduce(|acc, e| acc | e)
-            .unwrap()
-            == 1022
+                .as_bytes()
+                .iter()
+                .map(|x| PO2[(*x - b'0') as usize])
+                .reduce(|acc, e| acc | e)
+                .unwrap()
+                == 1022
             {
                 // This is faster than a HashSet
                 let mut to_insert = true;
