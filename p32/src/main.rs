@@ -20,7 +20,8 @@ fn main() {
             .as_bytes()
             .iter()
             .map(|x| PO2[(*x - b'0') as usize])
-            .sum::<u16>()
+            .reduce(|acc, e| acc | e)
+            .unwrap()
             == 1022
             {
                 // This is faster than a HashSet
