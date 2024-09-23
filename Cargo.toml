@@ -1,3 +1,5 @@
+cargo-features = ["codegen-backend"]
+
 [workspace]
 resolver = "2"
 members = [ 
@@ -12,3 +14,9 @@ members = [
     "p6", "p7", "p8", "p9", 
     "utils",
 ]
+
+[profile.release]
+lto = false
+
+[profile.dev]
+codegen-backend = "cranelift"
